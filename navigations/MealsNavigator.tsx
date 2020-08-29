@@ -17,18 +17,20 @@ const Stack = createStackNavigator<MealsParamList>()
 
 const MealsNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor:
+            Platform.OS === 'android' ? Colors.primaryColor : '#ffffff',
+        },
+        headerTintColor:
+          Platform.OS === 'android' ? '#ffffff' : Colors.primaryColor,
+      }}>
       <Stack.Screen
         name="Categories"
         component={CategoriesScreen}
         options={{
           title: 'Meal Categories',
-          headerStyle: {
-            backgroundColor:
-              Platform.OS === 'android' ? Colors.primaryColor : '#ffffff',
-          },
-          headerTintColor:
-            Platform.OS === 'android' ? '#ffffff' : Colors.primaryColor,
         }}
       />
       <Stack.Screen
@@ -42,7 +44,9 @@ const MealsNavigator = () => {
       <Stack.Screen
         name="MealDetail"
         component={MealDetailScreen}
-        options={{ title: 'Meal Detail' }}
+        options={{
+          title: 'Meal Detail',
+        }}
       />
     </Stack.Navigator>
   )
