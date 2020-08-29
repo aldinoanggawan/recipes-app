@@ -1,21 +1,25 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Button } from 'react-native'
+import { FlatList } from 'react-native'
 
+import CategoryList from '../components/CategoryList'
+import { CATEGORIES, CategoryData } from '../data/dummy-data'
 import { MealsParamList } from '../navigations/MealsNavigator'
-import { StyledText, StyledView } from '../styles/content'
 
 type CategoriesScreenProps = StackScreenProps<MealsParamList, 'CategoryMeals'>
 
 const CategoriesScreen = ({ navigation }: CategoriesScreenProps) => {
+  const renderGridItem = ({ item }: { item: CategoryData }) => (
+    <CategoryList item={item} navigation={navigation} />
+  )
+
   return (
-    <StyledView>
-      <StyledText>This is the categories screen</StyledText>
-      <Button
-        title="Go to Meals"
-        onPress={() => navigation.navigate('CategoryMeals')}
-      />
-    </StyledView>
+    <FlatList
+      data={CATEGORIES}
+      numColumns={2}
+      renderItem={renderGridItem}
+      keyExtractor={(item) => item.id}
+    />
   )
 }
 

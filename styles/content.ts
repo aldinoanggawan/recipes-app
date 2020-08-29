@@ -1,11 +1,34 @@
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
-export const StyledView = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+interface StyledTextProps {
+  categoryList?: boolean
+}
+
+interface StyledTouchableOpacityProps {
+  gridItem?: boolean
+}
+
+interface StyledViewProps {}
+
+export const StyledText = styled.Text<StyledTextProps>`
+  ${({ categoryList }) =>
+    categoryList &&
+    css`
+      font-size: 20px;
+    `}
 `
 
-export const StyledText = styled.Text`
-  font-size: 30px;
+export const StyledTouchableOpacity = styled.TouchableOpacity<
+  StyledTouchableOpacityProps
+>`
+  ${({ gridItem }) =>
+    gridItem &&
+    css`
+      background: #dbdbdb;
+      flex: 1;
+      margin: 15px;
+      height: 150px;
+    `}
 `
+
+export const StyledView = styled.View``
