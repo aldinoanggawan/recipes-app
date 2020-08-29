@@ -9,7 +9,7 @@ import MealDetailScreen from '../screens/MealDetailScreen'
 
 export type MealsParamList = {
   Categories: undefined
-  CategoryMeals: undefined
+  CategoryMeals: { title: string }
   MealDetail: undefined
 }
 
@@ -34,7 +34,10 @@ const MealsNavigator = () => {
       <Stack.Screen
         name="CategoryMeals"
         component={CategoryMealsScreen}
-        options={{ title: 'Category Meal' }}
+        options={({ route }) => ({
+          title: route.params.title,
+          headerBackTitle: 'Categories',
+        })}
       />
       <Stack.Screen
         name="MealDetail"

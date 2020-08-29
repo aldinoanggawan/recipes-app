@@ -23,7 +23,9 @@ const CategoryList = ({ item, navigation }: CategoryListProps) => {
   return (
     <StyledTouchableOpacity
       gridItem
-      onPress={() => navigation.navigate('CategoryMeals')}>
+      onPress={() =>
+        navigation.navigate('CategoryMeals', { title: item.title })
+      }>
       <StyledView>
         <StyledText categoryList>{item.title}</StyledText>
       </StyledView>

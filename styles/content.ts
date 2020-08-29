@@ -2,19 +2,26 @@ import styled, { css } from 'styled-components/native'
 
 interface StyledTextProps {
   categoryList?: boolean
+  title?: boolean
 }
 
 interface StyledTouchableOpacityProps {
   gridItem?: boolean
 }
 
-interface StyledViewProps {}
-
 export const StyledText = styled.Text<StyledTextProps>`
   ${({ categoryList }) =>
     categoryList &&
     css`
       font-size: 20px;
+    `}
+
+  ${({ title }) =>
+    title &&
+    css`
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
     `}
 `
 

@@ -5,12 +5,19 @@ import { Button } from 'react-native'
 import { StyledText, StyledView } from '../styles/content'
 import { MealsParamList } from '../navigations/MealsNavigator'
 
-type CategoryMealsScreenProps = StackScreenProps<MealsParamList>
+type CategoryMealsScreenProps = StackScreenProps<
+  MealsParamList,
+  'CategoryMeals'
+>
 
-const CategoryMealsScreen = ({ navigation }: CategoryMealsScreenProps) => {
+const CategoryMealsScreen = ({
+  route,
+  navigation,
+}: CategoryMealsScreenProps) => {
+  const { title } = route.params
   return (
     <StyledView>
-      <StyledText>Category Meals Screen</StyledText>
+      <StyledText title>{title}</StyledText>
       <Button
         title="Go to meal detail screen"
         onPress={() => navigation.navigate('MealDetail')}
