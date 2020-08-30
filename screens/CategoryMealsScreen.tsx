@@ -1,11 +1,10 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { FlatList } from 'react-native'
 
 import MealItem from '../components/MealItem'
 import { MEALS, MealData } from '../data/dummy-data'
-import { StyledView } from '../styles/content'
 import { MealsParamList } from '../navigations/MealsNavigator'
+import MealList from '../components/MealList'
 
 type CategoryMealsScreenProps = StackScreenProps<
   MealsParamList,
@@ -31,15 +30,7 @@ const CategoryMealsScreen = ({
     />
   )
 
-  return (
-    <StyledView>
-      <FlatList
-        data={displayedMeals}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </StyledView>
-  )
+  return <MealList listData={displayedMeals} renderItem={renderItem} />
 }
 
 export default CategoryMealsScreen

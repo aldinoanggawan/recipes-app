@@ -82,7 +82,22 @@ const FavoritesNavigator = () => {
         component={FavoritesScreen}
         options={{ title: 'Favorites' }}
       />
-      <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+      <Stack.Screen
+        name="MealDetail"
+        component={MealDetailScreen}
+        options={({ route }) => ({
+          title: route.params.title,
+          headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={FontAwesomeHeaderButton}>
+              <Item
+                title="Favorite"
+                iconName="star-o"
+                onPress={() => console.log('favorite')}
+              />
+            </HeaderButtons>
+          ),
+        })}
+      />
     </Stack.Navigator>
   )
 }
