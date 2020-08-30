@@ -16,6 +16,7 @@ import MealDetailScreen from '../screens/MealDetailScreen'
 export type MealsParamList = {
   Categories: undefined
   CategoryMeals: { id: string; title: string }
+  Favorites: undefined
   MealDetail: { id: string; title: string }
 }
 
@@ -27,17 +28,17 @@ type MealsFavTabParamList = {
 const Tab = createBottomTabNavigator<MealsFavTabParamList>()
 const Stack = createStackNavigator<MealsParamList>()
 
+const defaultStackNavOptions = {
+  headerStyle: {
+    backgroundColor:
+      Platform.OS === 'android' ? Colors.primaryColor : '#ffffff',
+  },
+  headerTintColor: Platform.OS === 'android' ? '#ffffff' : Colors.primaryColor,
+}
+
 const MealsNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor:
-            Platform.OS === 'android' ? Colors.primaryColor : '#ffffff',
-        },
-        headerTintColor:
-          Platform.OS === 'android' ? '#ffffff' : Colors.primaryColor,
-      }}>
+    <Stack.Navigator screenOptions={defaultStackNavOptions}>
       <Stack.Screen
         name="Categories"
         component={CategoriesScreen}
@@ -73,10 +74,30 @@ const MealsNavigator = () => {
   )
 }
 
+const FavoritesNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={defaultStackNavOptions}>
+      <Stack.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{ title: 'Favorites' }}
+      />
+      <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+    </Stack.Navigator>
+  )
+}
+
 const MealsFavTabNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBarOptions={{ activeTintColor: Colors.accentColor }}>
+      <Tab.Navigator
+        tabBarOptions={{
+          activeTintColor: Colors.accentColor,
+          style: {
+            backgroundColor:
+              Platform.OS === 'android' ? Colors.primaryColor : '#ffffff',
+          },
+        }}>
         <Tab.Screen
           name="Meals"
           component={MealsNavigator}
@@ -88,7 +109,7 @@ const MealsFavTabNavigator = () => {
         />
         <Tab.Screen
           name="Favorites"
-          component={FavoritesScreen}
+          component={FavoritesNavigator}
           options={{
             tabBarIcon: ({ color }) => (
               <Icon name="star" size={25} color={color} />

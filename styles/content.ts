@@ -3,21 +3,21 @@ import styled, { css } from 'styled-components/native'
 interface StyledTextProps {
   categoryList?: boolean
   favoriteScreen?: boolean
-  mealListHeader?: boolean
+  mealItemHeader?: boolean
   title?: boolean
 }
 
 interface StyledTouchableOpacityProps {
   background?: string
   gridItem?: boolean
-  mealList?: boolean
+  mealItem?: boolean
 }
 
 interface StyledViewProps {
   categoryList?: boolean
   favoriteScreen?: boolean
-  mealListHeader?: boolean
-  mealListFooter?: boolean
+  mealItemHeader?: boolean
+  mealItemFooter?: boolean
 }
 
 export const StyledImageBackground = styled.ImageBackground`
@@ -50,8 +50,8 @@ export const StyledText = styled.Text<StyledTextProps>`
       text-align: center;
     `}
 
-  ${({ mealListHeader }) =>
-    mealListHeader &&
+  ${({ mealItemHeader }) =>
+    mealItemHeader &&
     css`
       font-size: 21px;
       font-weight: bold;
@@ -85,8 +85,8 @@ export const StyledTouchableOpacity = styled.TouchableOpacity<
       elevation: 5;
     `}
 
-  ${({ mealList }) =>
-    mealList &&
+  ${({ mealItem }) =>
+    mealItem &&
     css`
       height: 200px;
       margin: 7.5px 10px;
@@ -110,14 +110,14 @@ export const StyledView = styled.View<StyledViewProps>`
       justify-content: center;
     `}
 
-  ${({ mealListHeader }) =>
-    mealListHeader &&
+  ${({ mealItemHeader }) =>
+    mealItemHeader &&
     css`
       height: 85%;
     `}
 
-  ${({ mealListFooter }) =>
-    mealListFooter &&
+  ${({ mealItemFooter }) =>
+    mealItemFooter &&
     css`
       height: 15%;
       padding: 0 10px;

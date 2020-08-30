@@ -2,7 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { FlatList } from 'react-native'
 
-import MealList from '../components/MealList'
+import MealItem from '../components/MealItem'
 import { MEALS, MealData } from '../data/dummy-data'
 import { StyledView } from '../styles/content'
 import { MealsParamList } from '../navigations/MealsNavigator'
@@ -23,7 +23,7 @@ const CategoryMealsScreen = ({
   )
 
   const renderItem = ({ item }: { item: MealData }) => (
-    <MealList
+    <MealItem
       item={item}
       onPress={() =>
         navigation.navigate('MealDetail', { id: item.id, title: item.title })

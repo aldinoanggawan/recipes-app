@@ -8,19 +8,19 @@ import {
   StyledView,
 } from '../styles/content'
 
-interface MealListProps {
+interface MealItemProps {
   item: MealData
   onPress: () => void
 }
 
-const MealList = ({ item, onPress }: MealListProps) => (
-  <StyledTouchableOpacity mealList onPress={onPress}>
-    <StyledView mealListHeader>
+const MealItem = ({ item, onPress }: MealItemProps) => (
+  <StyledTouchableOpacity mealItem onPress={onPress}>
+    <StyledView mealItemHeader>
       <StyledImageBackground source={{ uri: item.imageUrl }}>
-        <StyledText mealListHeader>{item.title}</StyledText>
+        <StyledText mealItemHeader>{item.title}</StyledText>
       </StyledImageBackground>
     </StyledView>
-    <StyledView mealListFooter>
+    <StyledView mealItemFooter>
       <StyledText>{item.duration}m</StyledText>
       <StyledText>{item.complexity.toUpperCase()}</StyledText>
       <StyledText>{item.affordability.toUpperCase()}</StyledText>
@@ -28,4 +28,4 @@ const MealList = ({ item, onPress }: MealListProps) => (
   </StyledTouchableOpacity>
 )
 
-export default MealList
+export default MealItem
