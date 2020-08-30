@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/native'
 
 interface StyledTextProps {
   categoryList?: boolean
+  favoriteScreen?: boolean
   mealListHeader?: boolean
   title?: boolean
 }
@@ -14,6 +15,7 @@ interface StyledTouchableOpacityProps {
 
 interface StyledViewProps {
   categoryList?: boolean
+  favoriteScreen?: boolean
   mealListHeader?: boolean
   mealListFooter?: boolean
 }
@@ -31,6 +33,13 @@ export const StyledText = styled.Text<StyledTextProps>`
       font-size: 25px;
       font-weight: bold;
       text-align: right;
+    `}
+
+  ${({ favoriteScreen }) =>
+    favoriteScreen &&
+    css`
+      font-size: 30px;
+      text-align: center;
     `}
 
   ${({ title }) =>
@@ -92,6 +101,13 @@ export const StyledView = styled.View<StyledViewProps>`
     css`
       flex: 1;
       justify-content: flex-end;
+    `}
+
+  ${({ favoriteScreen }) =>
+    favoriteScreen &&
+    css`
+      flex: 1;
+      justify-content: center;
     `}
 
   ${({ mealListHeader }) =>
