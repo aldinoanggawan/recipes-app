@@ -1,8 +1,10 @@
-import React from 'react'
-import { Platform } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import React from 'react'
+import { Platform } from 'react-native'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
+import FontAwesomeHeaderButton from '../components/HeaderButton'
 import Colors from '../constants/Colors'
 import CategoriesScreen from '../screens/CategoriesScreen'
 import CategoryMealsScreen from '../screens/CategoryMealsScreen'
@@ -11,7 +13,7 @@ import MealDetailScreen from '../screens/MealDetailScreen'
 export type MealsParamList = {
   Categories: undefined
   CategoryMeals: { id: string; title: string }
-  MealDetail: undefined
+  MealDetail: { id: string; title: string }
 }
 
 const Stack = createStackNavigator<MealsParamList>()
@@ -39,7 +41,6 @@ const MealsNavigator = () => {
           name="CategoryMeals"
           component={CategoryMealsScreen}
           options={({ route }) => ({
-            id: route.params.id,
             title: route.params.title,
             headerBackTitle: 'Categories',
           })}
@@ -47,9 +48,18 @@ const MealsNavigator = () => {
         <Stack.Screen
           name="MealDetail"
           component={MealDetailScreen}
-          options={{
-            title: 'Meal Detail',
-          }}
+          options={({ route }) => ({
+            title: route.params.title,
+            headerRight: () => (
+              <HeaderButtons HeaderButtonComponent={FontAwesomeHeaderButton}>
+                <Item
+                  title="Favorite"
+                  iconName="star-o"
+                  onPress={() => console.log('favorite')}
+                />
+              </HeaderButtons>
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

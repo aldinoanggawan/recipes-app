@@ -23,7 +23,12 @@ const CategoryMealsScreen = ({
   )
 
   const renderItem = ({ item }: { item: MealData }) => (
-    <MealList item={item} onPress={() => navigation.navigate('MealDetail')} />
+    <MealList
+      item={item}
+      onPress={() =>
+        navigation.navigate('MealDetail', { id: item.id, title: item.title })
+      }
+    />
   )
 
   return (
