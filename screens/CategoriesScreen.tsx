@@ -10,7 +10,12 @@ type CategoriesScreenProps = StackScreenProps<MealsParamList, 'CategoryMeals'>
 
 const CategoriesScreen = ({ navigation }: CategoriesScreenProps) => {
   const renderGridItem = ({ item }: { item: CategoryData }) => (
-    <CategoryList item={item} navigation={navigation} />
+    <CategoryList
+      item={item}
+      onPress={() =>
+        navigation.navigate('CategoryMeals', { id: item.id, title: item.title })
+      }
+    />
   )
 
   return (

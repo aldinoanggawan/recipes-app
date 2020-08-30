@@ -1,32 +1,21 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 
 import { CategoryData } from '../data/dummy-data'
-import { MealsParamList } from '../navigations/MealsNavigator'
 import {
   StyledText,
   StyledTouchableOpacity,
   StyledView,
 } from '../styles/content'
 
-type CategoryListNavigationProp = StackNavigationProp<
-  MealsParamList,
-  'CategoryMeals'
->
-
 type CategoryListProps = {
-  navigation: CategoryListNavigationProp
   item: CategoryData
+  onPress: () => void
 }
 
-const CategoryList = ({ item, navigation }: CategoryListProps) => {
+const CategoryList = ({ item, onPress }: CategoryListProps) => {
   return (
-    <StyledTouchableOpacity
-      gridItem
-      onPress={() =>
-        navigation.navigate('CategoryMeals', { title: item.title })
-      }>
-      <StyledView>
+    <StyledTouchableOpacity background={item.color} gridItem onPress={onPress}>
+      <StyledView categoryList>
         <StyledText categoryList>{item.title}</StyledText>
       </StyledView>
     </StyledTouchableOpacity>

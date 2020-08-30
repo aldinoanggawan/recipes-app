@@ -1,8 +1,10 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Button } from 'react-native'
+import { FlatList } from 'react-native'
 
-import { StyledText, StyledView } from '../styles/content'
+import MealList from '../components/MealList'
+import { MEALS, MealData } from '../data/dummy-data'
+import { StyledView } from '../styles/content'
 import { MealsParamList } from '../navigations/MealsNavigator'
 
 type CategoryMealsScreenProps = StackScreenProps<
@@ -14,13 +16,22 @@ const CategoryMealsScreen = ({
   route,
   navigation,
 }: CategoryMealsScreenProps) => {
-  const { title } = route.params
+  const { id } = route.params
+
+  const displayedMeals = MEALS.filter(
+    (meal) => meal.categoryIds.indexOf(id) >= 0,
+  )
+
+  const renderItem = ({ item }: { item: MealData }) => (
+    <MealList item={item} onPress={() => navigation.navigate('MealDetail')} />
+  )
+
   return (
     <StyledView>
-      <StyledText title>{title}</StyledText>
-      <Button
-        title="Go to meal detail screen"
-        onPress={() => navigation.navigate('MealDetail')}
+      <FlatList
+        data={displayedMeals}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
       />
     </StyledView>
   )
