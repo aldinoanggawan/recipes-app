@@ -1,9 +1,10 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { nanoid } from 'nanoid/non-secure'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-import { MEALS } from '../data/dummy-data'
 import { MealsParamList } from '../navigations/MealsNavigator'
+import { RootState } from '../store/reducers'
 import {
   StyledImage,
   StyledScrollView,
@@ -26,7 +27,10 @@ const ListItem = ({ children }: ListItemProps) => (
 const MealDetailScreen = ({ route }: MealDetailScreenProps) => {
   const { id } = route.params
 
-  const selectedMeal = MEALS.find((meal) => meal.id === id)
+  const selectAvailableMeals = (state: RootState) => state.meals.meals
+  const availableMeals = useSelector(selectAvailableMeals)
+
+  const selectedMeal = availableMeals.find((meal) => meal.id === id)
 
   return (
     <StyledScrollView>

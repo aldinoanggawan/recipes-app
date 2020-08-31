@@ -1,10 +1,12 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import MealItem from '../components/MealItem'
-import { MEALS, MealData } from '../data/dummy-data'
+import { MealData } from '../data/dummy-data'
 import { MealsParamList } from '../navigations/MealsNavigator'
 import MealList from '../components/MealList'
+import { RootState } from '../store/reducers'
 
 type CategoryMealsScreenProps = StackScreenProps<
   MealsParamList,
@@ -17,7 +19,10 @@ const CategoryMealsScreen = ({
 }: CategoryMealsScreenProps) => {
   const { id } = route.params
 
-  const displayedMeals = MEALS.filter(
+  const selectAvailableMeals = (state: RootState) => state.meals.filteredMeals
+  const availableMeals = useSelector(selectAvailableMeals)
+
+  const displayedMeals = availableMeals.filter(
     (meal) => meal.categoryIds.indexOf(id) >= 0,
   )
 

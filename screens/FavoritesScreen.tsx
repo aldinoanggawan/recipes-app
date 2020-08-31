@@ -1,17 +1,18 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import MealItem from '../components/MealItem'
 import MealList from '../components/MealList'
-import { MealData, MEALS } from '../data/dummy-data'
+import { MealData } from '../data/dummy-data'
 import { MealsParamList } from '../navigations/MealsNavigator'
+import { RootState } from '../store/reducers'
 
 type FavoriteScreenProps = StackScreenProps<MealsParamList, 'Favorites'>
 
 const FavoritesScreen = ({ navigation }: FavoriteScreenProps) => {
-  const favoriteMeals = MEALS.filter(
-    (meal) => meal.categoryIds.indexOf('c5') >= 0,
-  )
+  const selectFavoriteMeals = (state: RootState) => state.meals.favoriteMeals
+  const favoriteMeals = useSelector(selectFavoriteMeals)
 
   const renderItem = ({ item }: { item: MealData }) => (
     <MealItem

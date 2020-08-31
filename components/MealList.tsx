@@ -5,7 +5,7 @@ import { MealData } from '../data/dummy-data'
 import { StyledView } from '../styles/content'
 
 interface MealListProps {
-  listData: MealData[]
+  listData: MealData[] | null
   renderItem: ({ item }: { item: MealData }) => JSX.Element
 }
 
