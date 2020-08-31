@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
@@ -11,12 +12,14 @@ import Colors from '../constants/Colors'
 import CategoriesScreen from '../screens/CategoriesScreen'
 import CategoryMealsScreen from '../screens/CategoryMealsScreen'
 import FavoritesScreen from '../screens/FavoritesScreen'
+import FiltersScreen from '../screens/FiltersScreen'
 import MealDetailScreen from '../screens/MealDetailScreen'
 
 export type MealsParamList = {
   Categories: undefined
   CategoryMeals: { id: string; title: string }
   Favorites: undefined
+  Filters: undefined
   MealDetail: { id: string; title: string }
 }
 
@@ -25,6 +28,12 @@ type MealsFavTabParamList = {
   Favorites: undefined
 }
 
+type MainNavParamList = {
+  MealsFav: undefined
+  Filters: undefined
+}
+
+const Drawer = createDrawerNavigator<MainNavParamList>()
 const Tab = createBottomTabNavigator<MealsFavTabParamList>()
 const Stack = createStackNavigator<MealsParamList>()
 
@@ -42,9 +51,18 @@ const MealsNavigator = () => {
       <Stack.Screen
         name="Categories"
         component={CategoriesScreen}
-        options={{
+        options={({ navigation }) => ({
           title: 'Meal Categories',
-        }}
+          headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={FontAwesomeHeaderButton}>
+              <Item
+                title="Drawer"
+                iconName="navicon"
+                onPress={() => navigation.toggleDrawer()}
+              />
+            </HeaderButtons>
+          ),
+        })}
       />
       <Stack.Screen
         name="CategoryMeals"
@@ -80,7 +98,18 @@ const FavoritesNavigator = () => {
       <Stack.Screen
         name="Favorites"
         component={FavoritesScreen}
-        options={{ title: 'Favorites' }}
+        options={({ navigation }) => ({
+          title: 'Favorites',
+          headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={FontAwesomeHeaderButton}>
+              <Item
+                title="Drawer"
+                iconName="navicon"
+                onPress={() => navigation.toggleDrawer()}
+              />
+            </HeaderButtons>
+          ),
+        })}
       />
       <Stack.Screen
         name="MealDetail"
@@ -104,36 +133,76 @@ const FavoritesNavigator = () => {
 
 const MealsFavTabNavigator = () => {
   return (
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: Colors.accentColor,
+        style: {
+          backgroundColor:
+            Platform.OS === 'android' ? Colors.primaryColor : '#ffffff',
+        },
+      }}>
+      <Tab.Screen
+        name="Meals"
+        component={MealsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="cutlery" size={25} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={FavoritesNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="star" size={25} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
+
+const FiltersNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={defaultStackNavOptions}>
+      <Stack.Screen
+        name="Filters"
+        component={FiltersScreen}
+        options={({ navigation }) => ({
+          title: 'Filter Meals',
+          headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={FontAwesomeHeaderButton}>
+              <Item
+                title="Drawer"
+                iconName="navicon"
+                onPress={() => navigation.toggleDrawer()}
+              />
+            </HeaderButtons>
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  )
+}
+
+const MainNavigator = () => {
+  return (
     <NavigationContainer>
-      <Tab.Navigator
-        tabBarOptions={{
+      <Drawer.Navigator
+        drawerContentOptions={{
           activeTintColor: Colors.accentColor,
-          style: {
-            backgroundColor:
-              Platform.OS === 'android' ? Colors.primaryColor : '#ffffff',
-          },
+          labelStyle: { fontWeight: 'bold' },
         }}>
-        <Tab.Screen
-          name="Meals"
-          component={MealsNavigator}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Icon name="cutlery" size={25} color={color} />
-            ),
-          }}
+        <Drawer.Screen
+          name="MealsFav"
+          component={MealsFavTabNavigator}
+          options={{ drawerLabel: 'Meals' }}
         />
-        <Tab.Screen
-          name="Favorites"
-          component={FavoritesNavigator}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Icon name="star" size={25} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+        <Drawer.Screen name="Filters" component={FiltersNavigator} />
+      </Drawer.Navigator>
     </NavigationContainer>
   )
 }
 
-export default MealsFavTabNavigator
+export default MainNavigator
