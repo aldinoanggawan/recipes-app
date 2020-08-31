@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components/native'
 
 interface StyledTextProps {
-  categoryList?: boolean
-  favoriteScreen?: boolean
-  mealDetailTitle?: boolean
-  mealItemTitle?: boolean
-  title?: boolean
+  align?: string
+  background?: string
+  bold?: boolean
+  color?: string
+  margin?: string
+  padding?: string
+  size?: string
 }
 
 interface StyledTouchableOpacityProps {
@@ -16,7 +18,8 @@ interface StyledTouchableOpacityProps {
 
 interface StyledViewProps {
   categoryList?: boolean
-  favoriteScreen?: boolean
+  filterScreenContainer?: boolean
+  filterScreenSwitch?: boolean
   mealDetailImgLabel?: boolean
   mealDetailListItem?: boolean
   mealItemTitle?: boolean
@@ -39,48 +42,13 @@ export const StyledScrollView = styled.ScrollView`
 `
 
 export const StyledText = styled.Text<StyledTextProps>`
-  ${({ categoryList }) =>
-    categoryList &&
-    css`
-      font-size: 25px;
-      font-weight: bold;
-      text-align: right;
-    `}
-
-  ${({ favoriteScreen }) =>
-    favoriteScreen &&
-    css`
-      font-size: 30px;
-      text-align: center;
-    `}
-
-  ${({ title }) =>
-    title &&
-    css`
-      font-size: 30px;
-      font-weight: bold;
-      text-align: center;
-    `}
-
-  ${({ mealDetailTitle }) =>
-    mealDetailTitle &&
-    css`
-      font-size: 28px;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 20px;
-    `}
-
-  ${({ mealItemTitle }) =>
-    mealItemTitle &&
-    css`
-      font-size: 21px;
-      font-weight: bold;
-      color: white;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 5px 0;
-    `}
+  font-size: ${({ size }) => (size ? size : '14px')};
+  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
+  text-align: ${({ align }) => (align ? align : 'left')};
+  color: ${({ color }) => (color ? color : 'black')};
+  margin: ${({ margin }) => (margin ? margin : '0')};
+  padding: ${({ padding }) => (padding ? padding : '0')};
+  background: ${({ background }) => (background ? background : 'transparent')};
 `
 
 export const StyledTouchableOpacity = styled.TouchableOpacity<
@@ -124,11 +92,21 @@ export const StyledView = styled.View<StyledViewProps>`
       justify-content: flex-end;
     `}
 
-  ${({ favoriteScreen }) =>
-    favoriteScreen &&
+  ${({ filterScreenContainer }) =>
+    filterScreenContainer &&
     css`
       flex: 1;
-      justify-content: center;
+      align-items: center;
+    `}
+
+  ${({ filterScreenSwitch }) =>
+    filterScreenSwitch &&
+    css`
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 80%;
+      margin: 15px 0;
     `}
 
   ${({ mealDetailImgLabel }) =>

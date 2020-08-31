@@ -19,7 +19,7 @@ interface ListItemProps {
 
 const ListItem = ({ children }: ListItemProps) => (
   <StyledView mealDetailListItem>
-    <StyledText>{children}</StyledText>
+    <StyledText size="15px">{children}</StyledText>
   </StyledView>
 )
 
@@ -36,11 +36,15 @@ const MealDetailScreen = ({ route }: MealDetailScreenProps) => {
         <StyledText>{selectedMeal?.complexity.toUpperCase()}</StyledText>
         <StyledText>{selectedMeal?.affordability.toUpperCase()}</StyledText>
       </StyledView>
-      <StyledText mealDetailTitle>Ingredients</StyledText>
+      <StyledText size="28px" align="center" margin="20px 0 10px" bold>
+        Ingredients
+      </StyledText>
       {selectedMeal?.ingredients.map((ingredient) => (
         <ListItem key={nanoid()}>{ingredient}</ListItem>
       ))}
-      <StyledText mealDetailTitle>Steps</StyledText>
+      <StyledText size="28px" align="center" margin="20px 0 10px" bold>
+        Steps
+      </StyledText>
       {selectedMeal?.steps.map((step) => (
         <ListItem key={nanoid()}>{step}</ListItem>
       ))}

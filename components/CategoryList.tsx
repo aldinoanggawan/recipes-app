@@ -16,7 +16,9 @@ const CategoryList = ({ item, onPress }: CategoryListProps) => {
   return (
     <StyledTouchableOpacity background={item.color} gridItem onPress={onPress}>
       <StyledView categoryList>
-        <StyledText categoryList>{item.title}</StyledText>
+        <StyledText size="25px" align="right" bold>
+          {item.title}
+        </StyledText>
       </StyledView>
     </StyledTouchableOpacity>
   )

@@ -17,7 +17,15 @@ const MealItem = ({ item, onPress }: MealItemProps) => (
   <StyledTouchableOpacity mealItem onPress={onPress}>
     <StyledView mealItemTitle>
       <StyledImageBackground source={{ uri: item.imageUrl }}>
-        <StyledText mealItemTitle>{item.title}</StyledText>
+        <StyledText
+          size="21px"
+          color="white"
+          align="center"
+          background="rgba(0, 0, 0, 0.5)"
+          padding="5px 0"
+          bold>
+          {item.title}
+        </StyledText>
       </StyledImageBackground>
     </StyledView>
     <StyledView mealItemFooter>
