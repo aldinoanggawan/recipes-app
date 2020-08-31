@@ -15,9 +15,9 @@ interface MealItemProps {
 
 const MealItem = ({ item, onPress }: MealItemProps) => (
   <StyledTouchableOpacity mealItem onPress={onPress}>
-    <StyledView mealItemHeader>
+    <StyledView mealItemTitle>
       <StyledImageBackground source={{ uri: item.imageUrl }}>
-        <StyledText mealItemHeader>{item.title}</StyledText>
+        <StyledText mealItemTitle>{item.title}</StyledText>
       </StyledImageBackground>
     </StyledView>
     <StyledView mealItemFooter>

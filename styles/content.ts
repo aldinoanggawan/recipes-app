@@ -3,7 +3,8 @@ import styled, { css } from 'styled-components/native'
 interface StyledTextProps {
   categoryList?: boolean
   favoriteScreen?: boolean
-  mealItemHeader?: boolean
+  mealDetailTitle?: boolean
+  mealItemTitle?: boolean
   title?: boolean
 }
 
@@ -16,14 +17,25 @@ interface StyledTouchableOpacityProps {
 interface StyledViewProps {
   categoryList?: boolean
   favoriteScreen?: boolean
-  mealItemHeader?: boolean
+  mealDetailImgLabel?: boolean
+  mealDetailListItem?: boolean
+  mealItemTitle?: boolean
   mealItemFooter?: boolean
 }
+
+export const StyledImage = styled.Image`
+  width: 100%;
+  height: 200px;
+`
 
 export const StyledImageBackground = styled.ImageBackground`
   width: 100%;
   height: 100%;
   justify-content: flex-end;
+`
+
+export const StyledScrollView = styled.ScrollView`
+  background: #ffffff;
 `
 
 export const StyledText = styled.Text<StyledTextProps>`
@@ -50,8 +62,17 @@ export const StyledText = styled.Text<StyledTextProps>`
       text-align: center;
     `}
 
-  ${({ mealItemHeader }) =>
-    mealItemHeader &&
+  ${({ mealDetailTitle }) =>
+    mealDetailTitle &&
+    css`
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    `}
+
+  ${({ mealItemTitle }) =>
+    mealItemTitle &&
     css`
       font-size: 21px;
       font-weight: bold;
@@ -110,8 +131,27 @@ export const StyledView = styled.View<StyledViewProps>`
       justify-content: center;
     `}
 
-  ${({ mealItemHeader }) =>
-    mealItemHeader &&
+  ${({ mealDetailImgLabel }) =>
+    mealDetailImgLabel &&
+    css`
+      background: #f9f9f9;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+    `}
+
+  ${({ mealDetailListItem }) =>
+    mealDetailListItem &&
+    css`
+      margin: 10px 20px;
+      border-color: #ccc;
+      border-width: 1px;
+      padding: 10px;
+    `}
+
+  ${({ mealItemTitle }) =>
+    mealItemTitle &&
     css`
       height: 85%;
     `}
